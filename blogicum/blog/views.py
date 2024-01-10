@@ -1,3 +1,5 @@
+from django.http import Http404
+
 from django.shortcuts import render
 
 posts = [
@@ -44,7 +46,6 @@ posts = [
 ]
 
 
-# Create your views here.
 def index(request):
     template_name = 'blog/index.html'
     context = {'post': posts}
@@ -53,7 +54,10 @@ def index(request):
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    context = {'post': posts[id]}
+    try:
+        context = {'post': posts[id]}
+    except Exception:
+        raise Http404
     return render(request, template_name, context)
 
 
