@@ -54,11 +54,10 @@ def index(request):
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    try:
-        context = {'post': posts[id]}
-    except Exception:
+    context = {post['id']: post for post in posts}
+    if context.get(id) is None:
         raise Http404
-    return render(request, template_name, context)
+    return render(request, template_name, context[id])
 
 
 def category_posts(request, category_slug):
