@@ -1,23 +1,23 @@
 {% if request.path == '/' %}
-  {% for i in post reversed %}
+  {% for post in posts reversed %}
   <hr>
   <article>
     <ul>
         <li>
-          Место: {{ i.location }}             
+          Место: {{ post.location }}             
         </li>
         <li>
-          Дата: {{ i.date }}
+          Дата: {{ post.date }}
         </li>
         <li>
-          Категория: <a href="{% url 'blog:category_posts' i.category %}">{{ i.category }}</a>
+          Категория: <a href="{% url 'blog:category_posts' post.category %}">{{ post.category }}</a>
         </li>
       </ul>          
     <!-- Первые 10 слов -->
       <p>
-        {{ i.text|truncatewords:10 }}
+        {{ post.text|truncatewords:10 }}
       </p>
-      <a href="{% url 'blog:post_detail' i.id %}">Читать полный текст</a>
+      <a href="{% url 'blog:post_detail' post.id %}">Читать полный текст</a>
   {% endfor %}
   </article>
 {% else %}

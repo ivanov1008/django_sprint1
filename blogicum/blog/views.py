@@ -48,13 +48,14 @@ posts = [
 
 def index(request):
     template_name = 'blog/index.html'
-    context = {'post': posts}
+    context = {'posts': posts}
     return render(request, template_name, context)
 
 
 def post_detail(request, id):
     template_name = 'blog/detail.html'
-    post = next((post for post in posts if post['id'] == id), None)
+    posts_dict = {post['id']: post for post in posts}
+    post = posts_dict.get(id)
     if post is None:
         raise Http404
     context = {'post': post}
